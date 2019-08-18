@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Linq;
+using MLBlackjack.models;
+
+namespace MLBlackjack.extensions
+{
+    public static class extensions
+    {
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = ThreadSafeRandom.ThisThreadsRandom.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        public static int CardTotal(this List<card> list)
+        {
+            int CardTotal = 0;
+            foreach (card c in list)
+            {
+                CardTotal += c.value;
+            }
+            return CardTotal;
+        }
+
+        // Take any number of cards and create a 52 length binrary literal based on the value and suit.  
+        public static string CardsToLiteralKey(this List<card> list)
+        {
+            string LitKey = "";
+            for (int i = 0; i < 52; i++)
+            {
+                int NumOfCardsInPosition = 0;
+                // Check that card is in the right position and if so add to int to place in literal later
+                foreach (card c in list)
+                {
+                    if (i == c.CardLiteralKeyPosition())
+                    {
+                        NumOfCardsInPosition++;
+                    }
+                }
+                LitKey += NumOfCardsInPosition.ToString();
+            }
+            return LitKey;
+        }
+
+        // Get the position of a card in CardsToLiteralKey
+        public static int CardLiteralKeyPosition(this card card)
+        {
+            int position = 0;
+            //Position is arbitary and is 1D , 1C , 1H, 1S, 2D, 2C, 2H, 2S ...
+            position = ((card.value - 1) * 4) + (card.suit - 1);
+            return position;
+        }
+
+        public static class ThreadSafeRandom
+        {
+            [ThreadStatic] private static Random Local;
+
+            public static Random ThisThreadsRandom
+            {
+                get { return Local ?? (Local = new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId))); }
+            }
+        }
+    }
+}

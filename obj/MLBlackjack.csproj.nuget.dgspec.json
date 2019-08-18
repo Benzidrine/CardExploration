@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj": {}
+  },
+  "projects": {
+    "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj",
+        "projectName": "MLBlackjack",
+        "projectPath": "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj",
+        "packagesPath": "/home/taran/.nuget/packages/",
+        "outputPath": "/home/taran/Repos/MLBlackjack/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/taran/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
