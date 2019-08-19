@@ -1,25 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj": {}
+    "/Users/benzidrine/Repos/CardExploration/MLBlackjack.csproj": {}
   },
   "projects": {
-    "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj": {
+    "/Users/benzidrine/Repos/CardExploration/MLBlackjack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj",
+        "projectUniqueName": "/Users/benzidrine/Repos/CardExploration/MLBlackjack.csproj",
         "projectName": "MLBlackjack",
-        "projectPath": "/home/taran/Repos/MLBlackjack/MLBlackjack.csproj",
-        "packagesPath": "/home/taran/.nuget/packages/",
-        "outputPath": "/home/taran/Repos/MLBlackjack/obj/",
+        "projectPath": "/Users/benzidrine/Repos/CardExploration/MLBlackjack.csproj",
+        "packagesPath": "/Users/benzidrine/.nuget/packages/",
+        "outputPath": "/Users/benzidrine/Repos/CardExploration/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/home/taran/.nuget/NuGet/NuGet.Config"
+          "/Users/benzidrine/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "http://172.18.1.40:54244/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

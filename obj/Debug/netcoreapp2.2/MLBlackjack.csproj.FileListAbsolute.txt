@@ -9,3 +9,14 @@
 /home/taran/Repos/MLBlackjack/obj/Debug/netcoreapp2.2/MLBlackjack.AssemblyInfo.cs
 /home/taran/Repos/MLBlackjack/obj/Debug/netcoreapp2.2/MLBlackjack.dll
 /home/taran/Repos/MLBlackjack/obj/Debug/netcoreapp2.2/MLBlackjack.pdb
+/Users/benzidrine/Repos/CardExploration/bin/Debug/netcoreapp2.2/MLBlackjack.deps.json
+/Users/benzidrine/Repos/CardExploration/bin/Debug/netcoreapp2.2/MLBlackjack.runtimeconfig.json
+/Users/benzidrine/Repos/CardExploration/bin/Debug/netcoreapp2.2/MLBlackjack.runtimeconfig.dev.json
+/Users/benzidrine/Repos/CardExploration/bin/Debug/netcoreapp2.2/MLBlackjack.dll
+/Users/benzidrine/Repos/CardExploration/bin/Debug/netcoreapp2.2/MLBlackjack.pdb
+/Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.csprojAssemblyReference.cache
+/Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.csproj.CoreCompileInputs.cache
+/Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.AssemblyInfoInputs.cache
+/Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.AssemblyInfo.cs
+/Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.dll
+/Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.pdb

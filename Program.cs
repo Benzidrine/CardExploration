@@ -25,7 +25,12 @@ namespace MLBlackjack
             // Key Literal to unique value
             Console.WriteLine(Convert.ToInt64(Deck.Cards.CardsToLiteralKey(),2));
 
-            
+            ///  
+            ///    |----Agent------|
+            ///    |               |
+            ///    |--Environment--|
+            ///
+            ///    Passing State and Reward to Agent in return for Action Passed to Environment
         }
     }
 } 
