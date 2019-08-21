@@ -60,6 +60,28 @@ namespace MLBlackjack.extensions
             return position;
         }
 
+
+        // Int64 state to a list of cards - Probably inefficient but useful for analysis
+        public static List<card> StateNumberToCardList(int NumOfDecks, Int64 State)
+        {
+            List<card> cards = new List<card>();
+            //Convert to key literal by base (number of decks plus one defines base)
+            string literal = Convert.ToString(State, (NumOfDecks + 1));
+            int i = -1;
+            foreach (char c in literal)
+            {
+                i++;
+                // if zero ignore
+                if (c == '0') continue;
+                // if one
+                if (c == '1') cards.Add(card.PositionToCard(i));
+                if (c == '2') { cards.Add(card.PositionToCard(i)); cards.Add(card.PositionToCard(i));}
+                if (c == '3') { cards.Add(card.PositionToCard(i)); cards.Add(card.PositionToCard(i)); cards.Add(card.PositionToCard(i));}
+                if (c == '4') { cards.Add(card.PositionToCard(i)); cards.Add(card.PositionToCard(i)); cards.Add(card.PositionToCard(i));cards.Add(card.PositionToCard(i));}
+            }
+            return cards;
+        }
+
         public static class ThreadSafeRandom
         {
             [ThreadStatic] private static Random Local;
