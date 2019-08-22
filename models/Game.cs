@@ -12,10 +12,11 @@ namespace CardExploration.models
     {
         public long state {get; set;}
         deck GameDeck {get;set;}
-        deck DiscardedCards {get;set;}
+        List<card> DiscardedCards {get;set;}
         //Num of Decks is also the base number for state here
         int NumOfDecks {get;set;}
-
+        //Hand kept track of here for utility purposes only
+        List<card> PlayerHand  {get;set;}
         public Game()
         {
             GameDeck = new deck();
@@ -34,9 +35,14 @@ namespace CardExploration.models
                     GameDeck.Cards.RemoveAt(0);
                     //Add Card to state
                     state = extensions.AddCardToState(state,c,NumOfDecks);
+                    //Add Card to utility Player Hand
+                    PlayerHand.Add(c);
                     //check for bust - return negative reward 
                     if (extensions.StateNumberToCardList(NumOfDecks,state).BlackjackTotal() > 21 )
                     {
+                        //Discard Player Hand
+                        DiscardedCards.AddRange(PlayerHand);
+                        PlayerHand = new List<card>();
                         //if cards less than 75% then shuffle in discarded cards
                     }
                     else
