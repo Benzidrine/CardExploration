@@ -31,6 +31,31 @@ namespace MLBlackjack.extensions
             return CardTotal;
         }
 
+        //This takes into account changing aces
+        public static int BlackjackTotal(this List<card> list)
+        {
+            int CardTotal = 0;
+            foreach (card c in list)
+            {
+                if (c.value == 1) {  CardTotal += 11; }
+                else CardTotal += c.value;
+            }
+            if (CardTotal > 21)
+            {
+                CardTotal = 0;
+                //Change first ace to 1
+                bool ConvertedAce = false;
+                foreach (card c in list)
+                {
+                    if (c.value == 1 && !ConvertedAce) {  CardTotal += 11; ConvertedAce = !ConvertedAce; }
+                    else if (c.value == 1) {  CardTotal += 11; }
+                    else CardTotal += c.value;
+                }
+            }
+            return CardTotal;
+        }
+
+
         // Take any number of cards and create a 52 length binrary literal based on the value and suit.  
         public static string CardsToLiteralKey(this List<card> list)
         {
@@ -51,6 +76,25 @@ namespace MLBlackjack.extensions
             return LitKey;
         }
 
+        public static Int64 AddCardToState(Int64 state, card card, int NumOfDecks)
+        {
+            int Position = card.CardLiteralKeyPosition();
+            string NewState = "";
+            string literal = Convert.ToString(state, (NumOfDecks + 1));
+            
+            for (int i = 0; i < literal.Length; i++)
+            {
+                if (Position == i)
+                {
+                    if (literal[i] == '0')  {NewState += '1'; continue;}
+                    if (literal[i] == '1')  {NewState += '2'; continue;}
+                    if (literal[i] == '2')  {NewState += '3'; continue;}
+                    if (literal[i] == '3')  {NewState += '4'; continue;}
+                }
+                NewState += literal[i];
+            }
+            return Convert.ToInt64(NewState,(NumOfDecks + 1));
+        }
         // Get the position of a card in CardsToLiteralKey
         public static int CardLiteralKeyPosition(this card card)
         {

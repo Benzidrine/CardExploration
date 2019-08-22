@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MLBlackjack.extensions;
 using MLBlackjack.models;
 
@@ -11,6 +12,9 @@ namespace CardExploration.models
     {
         public long state {get; set;}
         deck GameDeck {get;set;}
+        deck DiscardedCards {get;set;}
+        //Num of Decks is also the base number for state here
+        int NumOfDecks {get;set;}
 
         public Game()
         {
@@ -24,8 +28,21 @@ namespace CardExploration.models
                 case PlayerAction.hit:
                     //deal new card
                     GameDeck.Cards.Shuffle();
+                    //Get top card
+                    card c = GameDeck.Cards.First();
+                    //Remove top card 
+                    GameDeck.Cards.RemoveAt(0);
+                    //Add Card to state
+                    state = extensions.AddCardToState(state,c,NumOfDecks);
                     //check for bust - return negative reward 
+                    if (extensions.StateNumberToCardList(NumOfDecks,state).BlackjackTotal() > 21 )
+                    {
+                        //if cards less than 75% then shuffle in discarded cards
+                    }
+                    else
+                    {
 
+                    }
                     break;
                 case PlayerAction.stand:
                     //determine the dealer actions and then return whether a win has been achieved and a new state

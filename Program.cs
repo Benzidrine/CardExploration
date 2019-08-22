@@ -23,7 +23,7 @@ namespace MLBlackjack
             Console.WriteLine(Deck.Cards.CardsToLiteralKey());
 
             // Key Literal to unique value
-            Console.WriteLine(Convert.ToInt64(Deck.Cards.CardsToLiteralKey(),2));
+            Console.WriteLine(Convert.ToInt64(Deck.Cards.CardsToLiteralKey(),2)); 
 
             // From unique value back to list
             Deck.Cards = extensions.extensions.StateNumberToCardList(1,Convert.ToInt64(Deck.Cards.CardsToLiteralKey(),2));

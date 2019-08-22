@@ -20,3 +20,9 @@
 /Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.AssemblyInfo.cs
 /Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.dll
 /Users/benzidrine/Repos/CardExploration/obj/Debug/netcoreapp2.2/MLBlackjack.pdb
+C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.csprojAssemblyReference.cache
+C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.csproj.CoreCompileInputs.cache
+C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.AssemblyInfoInputs.cache
+C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.AssemblyInfo.cs
+C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.dll
+C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.pdb

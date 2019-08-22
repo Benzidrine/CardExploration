@@ -688,29 +688,30 @@
     ]
   },
   "packageFolders": {
-    "/Users/benzidrine/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\benzi\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/benzidrine/Repos/CardExploration/MLBlackjack.csproj",
+      "projectUniqueName": "C:\\Users\\benzi\\Repos\\CardExploration\\MLBlackjack.csproj",
       "projectName": "MLBlackjack",
-      "projectPath": "/Users/benzidrine/Repos/CardExploration/MLBlackjack.csproj",
-      "packagesPath": "/Users/benzidrine/.nuget/packages/",
-      "outputPath": "/Users/benzidrine/Repos/CardExploration/obj/",
+      "projectPath": "C:\\Users\\benzi\\Repos\\CardExploration\\MLBlackjack.csproj",
+      "packagesPath": "C:\\Users\\benzi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\benzi\\Repos\\CardExploration\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/benzidrine/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\benzi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "http://172.18.1.40:54244/nuget": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
