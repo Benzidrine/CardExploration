@@ -26,3 +26,8 @@ C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.Assembl
 C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.AssemblyInfo.cs
 C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.dll
 C:\Users\benzi\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.pdb
+C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.deps.json
+C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.runtimeconfig.json
+C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.runtimeconfig.dev.json
+C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.dll
+C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.pdb

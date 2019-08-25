@@ -15,11 +15,26 @@ namespace CardExploration.models
         List<card> DiscardedCards {get;set;}
         //Num of Decks is also the base number for state here
         int NumOfDecks {get;set;}
-        //Hand kept track of here for utility purposes only
+        //Hand kept track of here for utility purposes and memory management
         List<card> PlayerHand  {get;set;}
-        public Game()
+        List<card> DealerHand {get;set;}
+        public Game(int numOfDecks)
         {
-            GameDeck = new deck();
+            NumOfDecks = numOfDecks;
+            GameDeck = new deck(NumOfDecks);
+        }
+
+        //Reward is passed through depending on context like new round after win or loss or game beginning
+        public Tuple<Int64,double> NewRound(double reward)
+        {
+            ReshuffleIfNeccessary();
+            DealInitialCardsToPlayer();
+            DealInitialCardsToDealer();
+            //Get Player State 
+            long Playerstate = Convert.ToInt64(PlayerHand.CardsToLiteralKey(),2);
+            //Get Dealer State, unsure of where this goes for now
+            int DealerState = DealerHand.First().value;
+            return new Tuple<long,double>(Playerstate,reward);
         }
         
         public Tuple<Int64,double> ProcessPlayerAction(PlayerAction playerAction)
@@ -33,33 +48,83 @@ namespace CardExploration.models
                     card c = GameDeck.Cards.First();
                     //Remove top card 
                     GameDeck.Cards.RemoveAt(0);
-                    //Add Card to state
-                    state = extensions.AddCardToState(state,c,NumOfDecks);
                     //Add Card to utility Player Hand
                     PlayerHand.Add(c);
                     //check for bust - return negative reward 
-                    if (extensions.StateNumberToCardList(NumOfDecks,state).BlackjackTotal() > 21 )
+                    if (PlayerHand.BlackjackTotal() > 21 )
                     {
-                        //Discard Player Hand
-                        DiscardedCards.AddRange(PlayerHand);
-                        PlayerHand = new List<card>();
-                        //if cards less than 75% then shuffle in discarded cards
+                        return NewRound(-1);
                     }
                     else
                     {
-
+                        return new Tuple<long,double>(Convert.ToInt64(PlayerHand.CardsToLiteralKey(),2),0.1);
                     }
-                    break;
                 case PlayerAction.stand:
-                    //determine the dealer actions and then return whether a win has been achieved and a new state
+                    if (DealerHand.BlackjackTotal() >= 17)
+                    {
+                        //Check if won
+                        if (PlayerHand.BlackjackTotal() > DealerHand.BlackjackTotal())
+                            return NewRound(1); 
+                        //Check for push
+                        else if (PlayerHand.BlackjackTotal() == DealerHand.BlackjackTotal())
+                            return NewRound(0);
+                        //Lost
+                        else
+                            return NewRound(-1);
+                    }
+                    else
+                    {
+                        //Dealer actions hit until 17+ or bust 
+                        while (DealerHand.BlackjackTotal() < 17)
+                        {
+                            //deal new card
+                            GameDeck.Cards.Shuffle();
+                            //Get top card
+                            card dc = GameDeck.Cards.First();
+                            //Remove top card 
+                            GameDeck.Cards.RemoveAt(0);
+                            //Add Card to utility Dealer Hand
+                            DealerHand.Add(dc);
+                        }
+                        //Check for bust 
+                    }
                     break;
             }
             return new Tuple<long,double>(0,0);
         }
 
-        public static void DealCard()
+        public void DealInitialCardsToPlayer()
         {
-            
+            //Instantiate empty player hand 
+            PlayerHand = new List<card>();
+            //deal new card`
+            GameDeck.Cards.Shuffle();
+            //Get top cards
+            PlayerHand.AddRange(GameDeck.Cards.Take(2));
+            //Remove top cards 
+            GameDeck.Cards.RemoveRange(0,2);
+        }
+        
+        public void DealInitialCardsToDealer()
+        {
+            //Instantiate empty player hand 
+            DealerHand = new List<card>();
+            //deal new card`
+            GameDeck.Cards.Shuffle();
+            //Get top cards
+            DealerHand.AddRange(GameDeck.Cards.Take(2));
+            //Remove top cards 
+            GameDeck.Cards.RemoveRange(0,2);
+        }
+        
+        public void ReshuffleIfNeccessary()
+        {
+            int NumOfCards = NumOfDecks * 52;
+            //If a deck has less than 25% capacity it is reshuffled
+            if (GameDeck.Cards.Count < (NumOfCards * 0.25))
+            {
+                GameDeck = new deck(NumOfDecks);
+            }
         }
     }
 }

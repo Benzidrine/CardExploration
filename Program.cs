@@ -9,7 +9,7 @@ namespace MLBlackjack
     {
         static void Main(string[] args)
         {
-            deck Deck = new deck();
+            deck Deck = new deck(1);
 
             Console.ReadLine();
             // Demonstrate Card Total

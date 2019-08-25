@@ -10,17 +10,27 @@ namespace MLBlackjack.models
     public class deck
     {
         public List<card> Cards {get;set;}
-        public deck()
+        
+        public int ID = 0;
+
+        public deck(int NumOfDecks)
         {
             // Instantiate ID to add to each card incrementally
-            int ID = 0;
             // Create 52 card deck
             Cards = new List<card>();
+            for (int i = 0; i < NumOfDecks; i++)
+            {
+                CreateDeck();
+            }
+        }
+
+        public void CreateDeck()
+        {
             for (int j = 1; j < 5; j++)
             {
                 for (int i = 1; i < 14; i++)
                 {
-                    ID = ID++;
+                    ID++;
                     Cards.Add(new card(ID,i,j));
                 }
             }
