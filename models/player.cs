@@ -7,26 +7,22 @@ using CardExploration.models;
 namespace MLBlackjack.models
 {   
     //Should inherit most of this from an agent class in the future
-    public class player
+    public class Player
     {
         List<card> hand {get;set;}
         phase phase {get;set;}
-        double score {get; set;}
+        public double score {get; set;}
 
         //Create player and deal cards to hand 
-        public player(List<card> deck)
+        public Player()
         {
-            //shuffle deck
-            deck.Shuffle();
-            //add cards to hand
-            hand.AddRange(deck.Take(2));
         }
 
         //Take State And Reward and send action
-        public PlayerAction Receive(Int64 State, double reward)
+        public PlayerAction Receive(Tuple<Int64,double> GameInfo)
         {
-            score += reward;
-            return MakeDecision(State);
+            score += GameInfo.Item2;
+            return MakeDecision(GameInfo.Item1);
         }
 
         //Take Action 

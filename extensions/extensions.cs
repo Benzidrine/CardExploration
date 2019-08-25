@@ -31,25 +31,31 @@ namespace MLBlackjack.extensions
             return CardTotal;
         }
 
-        //This takes into account changing aces
+        // This takes into account changing aces
         public static int BlackjackTotal(this List<card> list)
         {
             int CardTotal = 0;
+            
             foreach (card c in list)
             {
-                if (c.value == 1) {  CardTotal += 11; }
-                else CardTotal += c.value;
+                // Limit value to 10
+                int cardValue = c.value > 10 ? 10 : c.value;
+                // Change Aces
+                if (cardValue == 1) {  CardTotal += 11; }
+                else CardTotal += cardValue;
             }
             if (CardTotal > 21)
             {
                 CardTotal = 0;
-                //Change first ace to 1
+                // Change first ace to 1
                 bool ConvertedAce = false;
                 foreach (card c in list)
                 {
-                    if (c.value == 1 && !ConvertedAce) {  CardTotal += 11; ConvertedAce = !ConvertedAce; }
-                    else if (c.value == 1) {  CardTotal += 11; }
-                    else CardTotal += c.value;
+                    // Limit value to 10
+                    int cardValue = c.value > 10 ? 10 : c.value;
+                    if (cardValue == 1 && !ConvertedAce) {  CardTotal += cardValue; ConvertedAce = !ConvertedAce; }
+                    else if (cardValue == 1) {  CardTotal += 11; }
+                    else CardTotal += cardValue;
                 }
             }
             return CardTotal;

@@ -86,11 +86,19 @@ namespace CardExploration.models
                             //Add Card to utility Dealer Hand
                             DealerHand.Add(dc);
                         }
-                        //Check for bust 
+
+                        //Check for dealer bust or dealer lost
+                        if (DealerHand.BlackjackTotal() > 21 || DealerHand.BlackjackTotal() < PlayerHand.BlackjackTotal())
+                            return NewRound(1);
+                        //Check for push
+                        else if (PlayerHand.BlackjackTotal() == DealerHand.BlackjackTotal())
+                            return NewRound(0);
+                        //Lost
+                        else
+                            return NewRound(-1);
                     }
-                    break;
             }
-            return new Tuple<long,double>(0,0);
+            throw new Exception("PayerAction was not handled");
         }
 
         public void DealInitialCardsToPlayer()
