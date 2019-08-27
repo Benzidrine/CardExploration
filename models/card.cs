@@ -7,14 +7,19 @@ namespace MLBlackjack.models
 
         }
 
-        public card(int id, int power, int cardsuit)
+        public card(int id, int value, int suit)
         {
-            ID = id;
-            //value equals the blackjack value
-            value = power;
-            suit = cardsuit;
+            /// <summary>
+            /// instantiate the card object with a id, value and suit
+            /// </summary>
+            /// <param name="id">An identification number</param>
+            /// <param name="value">Cards value in the game</param>
+            /// <param name="suit">Cards sub identity as a member of a suit</param>
+            this.id = id;
+            this.value = value;
+            this.suit = suit;
         }
-        public int ID {get; set;}
+        public int id {get; set;}
         public int value {get; set;}
         public int suit {get; set;}
 
