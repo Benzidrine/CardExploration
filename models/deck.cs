@@ -11,7 +11,7 @@ namespace MLBlackjack.models
     {
         public List<card> Cards {get;set;}
         
-        public int ID = 0;
+        public int id = 0;
 
         public deck(int NumOfDecks)
         {
@@ -30,8 +30,8 @@ namespace MLBlackjack.models
             {
                 for (int i = 1; i < 14; i++)
                 {
-                    ID++;
-                    Cards.Add(new card(ID,i,j));
+                    id++;
+                    Cards.Add(new card(id,i,j));
                 }
             }
         }
