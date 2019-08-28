@@ -8,7 +8,7 @@ namespace CardExploration.models
 {
 
     //Should inherit most of this from an environment class in future
-    public class Game
+    public class Game : IEnvironment
     {
         public long state {get; set;}
         deck GameDeck {get;set;}
@@ -36,67 +36,76 @@ namespace CardExploration.models
             int DealerState = DealerHand.First().value;
             return new Tuple<long,double>(Playerstate,reward);
         }
-        
-        public Tuple<Int64,double> ProcessPlayerAction(PlayerAction playerAction)
-        {
-            switch (playerAction)
-            {
-                case PlayerAction.hit:
-                    //deal new card
-                    GameDeck.Cards.Shuffle();
-                    //Get top card
-                    card c = GameDeck.Cards.First();
-                    //Remove top card 
-                    GameDeck.Cards.RemoveAt(0);
-                    //Add Card to utility Player Hand
-                    PlayerHand.Add(c);
-                    //check for bust - return negative reward 
-                    if (PlayerHand.BlackjackTotal() > 21 )
-                    {
-                        return NewRound(-1);
-                    }
-                    else
-                    {
-                        return new Tuple<long,double>(Convert.ToInt64(PlayerHand.CardsToLiteralKey(),2),0.1);
-                    }
-                case PlayerAction.stand:
-                    if (DealerHand.BlackjackTotal() >= 17)
-                    {
-                        //Check if won
-                        if (PlayerHand.BlackjackTotal() > DealerHand.BlackjackTotal())
-                            return NewRound(1); 
-                        //Check for push
-                        else if (PlayerHand.BlackjackTotal() == DealerHand.BlackjackTotal())
-                            return NewRound(0);
-                        //Lost
-                        else
-                            return NewRound(-1);
-                    }
-                    else
-                    {
-                        //Dealer actions hit until 17+ or bust 
-                        while (DealerHand.BlackjackTotal() < 17)
-                        {
-                            //deal new card
-                            GameDeck.Cards.Shuffle();
-                            //Get top card
-                            card dc = GameDeck.Cards.First();
-                            //Remove top card 
-                            GameDeck.Cards.RemoveAt(0);
-                            //Add Card to utility Dealer Hand
-                            DealerHand.Add(dc);
-                        }
 
-                        //Check for dealer bust or dealer lost
-                        if (DealerHand.BlackjackTotal() > 21 || DealerHand.BlackjackTotal() < PlayerHand.BlackjackTotal())
-                            return NewRound(1);
-                        //Check for push
-                        else if (PlayerHand.BlackjackTotal() == DealerHand.BlackjackTotal())
-                            return NewRound(0);
-                        //Lost
-                        else
+        public Int64 ReturnState()
+        {
+            return Convert.ToInt64(PlayerHand.CardsToLiteralKey(),2);
+        }
+        
+        public Tuple<Int64,double> Transition(int playerActionInput)
+        {
+            if (Enum.TryParse(typeof(PlayerAction),playerActionInput.ToString(),true,out var playerAction))
+            {
+                switch (playerAction)
+                {
+                    case PlayerAction.hit:
+                        //deal new card
+                        GameDeck.Cards.Shuffle();
+                        //Get top card
+                        card c = GameDeck.Cards.First();
+                        //Remove top card 
+                        GameDeck.Cards.RemoveAt(0);
+                        //Add Card to utility Player Hand
+                        PlayerHand.Add(c);
+                        //check for bust - return negative reward 
+                        if (PlayerHand.BlackjackTotal() > 21 )
+                        {
                             return NewRound(-1);
-                    }
+                        }
+                        else
+                        {
+                            return new Tuple<long,double>(Convert.ToInt64(PlayerHand.CardsToLiteralKey(),2),0.1);
+                        }
+                    case PlayerAction.stand:
+                        // TODO: Check for dealer Bust
+                        if (DealerHand.BlackjackTotal() >= 17)
+                        {
+                            //Check if won
+                            if (PlayerHand.BlackjackTotal() > DealerHand.BlackjackTotal())
+                                return NewRound(1); 
+                            //Check for push
+                            else if (PlayerHand.BlackjackTotal() == DealerHand.BlackjackTotal())
+                                return NewRound(0);
+                            //Lost
+                            else
+                                return NewRound(-1);
+                        }
+                        else
+                        {
+                            //Dealer actions hit until 17+ or bust 
+                            while (DealerHand.BlackjackTotal() < 17)
+                            {
+                                //deal new card
+                                GameDeck.Cards.Shuffle();
+                                //Get top card
+                                card dc = GameDeck.Cards.First();
+                                //Remove top card 
+                                GameDeck.Cards.RemoveAt(0);
+                                //Add Card to utility Dealer Hand
+                                DealerHand.Add(dc);
+                            }
+
+                            //Check for dealer bust or dealer lost
+                            if (DealerHand.BlackjackTotal() > 21 || DealerHand.BlackjackTotal() < PlayerHand.BlackjackTotal())
+                                return NewRound(1);
+                            //Check for push
+                            else if (PlayerHand.BlackjackTotal() == DealerHand.BlackjackTotal())
+                                return NewRound(0);
+                            //Lost
+                            else
+                                return NewRound(-1);
+                        }
+                }
             }
             throw new Exception("PayerAction was not handled");
         }

@@ -26,20 +26,11 @@ namespace MLBlackjack.models
         }
 
         //Take Action 
-        public PlayerAction MakeDecision(Int64 State)
+        public int MakeDecision(Int64 State)
         {
             //Random Placeholder
             Random rnd = new Random();
-            switch(rnd.Next(0,2))
-            {
-                case 0:
-                    return PlayerAction.stand;
-                case 1:
-                    return PlayerAction.hit;
-                default:
-                    return PlayerAction.stand;
-            }
-            
+            return rnd.Next(0,2);
         }
     }
 }

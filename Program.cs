@@ -41,7 +41,7 @@ namespace MLBlackjack
 
             for (int i = 0; i < 1000000; i++)
             {
-                initial = game.ProcessPlayerAction(player.Receive(initial));
+                initial = game.Transition(player.Receive(initial));
             }
 
             //Player Score
