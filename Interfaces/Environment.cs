@@ -11,5 +11,7 @@ namespace CardExploration.models
         
         Tuple<Int64,double> Transition(int playerAction);
         Int64 ReturnState();
+
+        double ReturnReward(Int64 State);
     }
 }
