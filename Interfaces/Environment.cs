@@ -9,9 +9,8 @@ namespace CardExploration.models
     interface IEnvironment
     {
         
-        Tuple<Int64,double> Transition(int playerAction);
-        Int64 ReturnState();
+        Tuple<long, double> Transition(int playerAction);
+        long ReturnState();
 
-        double ReturnReward(Int64 State);
     }
 }

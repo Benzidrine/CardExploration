@@ -31,3 +31,7 @@ C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.runtime
 C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.runtimeconfig.dev.json
 C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.dll
 C:\Users\benzi\Repos\CardExploration\bin\Debug\netcoreapp2.2\MLBlackjack.pdb
+E:\Liam\Source\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.csprojAssemblyReference.cache
+E:\Liam\Source\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.csproj.CoreCompileInputs.cache
+E:\Liam\Source\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.AssemblyInfoInputs.cache
+E:\Liam\Source\Repos\CardExploration\obj\Debug\netcoreapp2.2\MLBlackjack.AssemblyInfo.cs

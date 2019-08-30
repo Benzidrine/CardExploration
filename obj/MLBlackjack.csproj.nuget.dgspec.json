@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\benzi\\Repos\\CardExploration\\MLBlackjack.csproj": {}
+    "E:\\Liam\\Source\\Repos\\CardExploration\\MLBlackjack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\benzi\\Repos\\CardExploration\\MLBlackjack.csproj": {
+    "E:\\Liam\\Source\\Repos\\CardExploration\\MLBlackjack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\benzi\\Repos\\CardExploration\\MLBlackjack.csproj",
+        "projectUniqueName": "E:\\Liam\\Source\\Repos\\CardExploration\\MLBlackjack.csproj",
         "projectName": "MLBlackjack",
-        "projectPath": "C:\\Users\\benzi\\Repos\\CardExploration\\MLBlackjack.csproj",
-        "packagesPath": "C:\\Users\\benzi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\benzi\\Repos\\CardExploration\\obj\\",
+        "projectPath": "E:\\Liam\\Source\\Repos\\CardExploration\\MLBlackjack.csproj",
+        "packagesPath": "C:\\Users\\Liam\\.nuget\\packages\\",
+        "outputPath": "E:\\Liam\\Source\\Repos\\CardExploration\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\benzi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Liam\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

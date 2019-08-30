@@ -1,36 +1,27 @@
-using System.Collections.Generic;
-using MLBlackjack.extensions;
-using System.Linq;
-using System;
 using CardExploration.models;
+using System;
+using System.Collections.Generic;
 
 namespace MLBlackjack.models
-{   
-    //Should inherit most of this from an agent class in the future
-    public class Player
+{
+    //inherits most of its methods from is parent only impliments methods pertaining specific to the kind of game
+    public class Player : Agent
     {
-        List<card> hand {get;set;}
-        phase phase {get;set;}
-        public double score {get; set;}
+        List<card> Hand { get; set; }
+        Phase Phase { get; set; }
+        public Player(IExplorationPolicy ExplorationPolicy) : base(ExplorationPolicy) { }
 
-        //Create player and deal cards to hand 
-        public Player()
+        public PlayerAction Receive(long State, double Reward)
         {
+            int Action = MakeDecision(State);
+            UpdateState(State, Action, Reward);
+            return (PlayerAction)Action;
         }
-
-        //Take State And Reward and send action
-        public PlayerAction Receive(Tuple<Int64,double> GameInfo)
-        {
-            score += GameInfo.Item2;
-            return MakeDecision(GameInfo.Item1);
-        }
-
-        //Take Action 
-        public int MakeDecision(Int64 State)
+        private int MakeDecision(long State)
         {
             //Random Placeholder
             Random rnd = new Random();
-            return rnd.Next(0,2);
+            return rnd.Next(0, 2);
         }
     }
 }

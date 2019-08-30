@@ -8,29 +8,14 @@ namespace MLBlackjack.models
     /// The agent interacts with the environment according to a defined policy 
     /// and a set of constraints i.e. the action space and state space
     /// </summary>
-    interface IAgent
+    public abstract class Agent
     {
-        /// <summary>
-        /// The total number of states that the agent can exist in 
-        /// this number is sadly finite however we can use fuzzy logic 
-        /// to make the state space continuous or by defining this to be 
-        /// the degrees of freedom
-        /// can change over time
-        /// </summary>
-        Int64 NumStates { get; set; }
 
-        /// <summary>
-        /// The total number of actions that the agent can take
-        /// like the number of states it is possible to define this as
-        /// a continuous space by changing this to the degrees of freedom
-        /// can change over time
-        /// </summary>
-        Int64 NumActions { get; set; }
 
         /// <summary>
         /// Store the agents model of the world in a state variable as a markov chain
         /// </summary>
-        Int64 State { get; }
+        public long State { get; set; }
 
         /// <summary>
         /// how valuable are future rewards compared to present rewards
@@ -38,20 +23,26 @@ namespace MLBlackjack.models
         /// i.e. the agent should never be 100% about the future
         /// can change over time
         /// </summary>
-        float DiscountFactor { get; set; }
+        public double DiscountFactor { get; set; }
 
         /// <summary>
         /// The exploration policy defines the behaviour of the agent
         /// can change over time
         /// </summary>
-        IExplorationPolicy ExplorationPolicy { get; set; }
+        private IExplorationPolicy ExplorationPolicy { get; set; }
+
+        public Agent(IExplorationPolicy ExplorationPolicy)
+        {
+            this.ExplorationPolicy = ExplorationPolicy;
+        }
 
         /// <summary>
-        /// Agents decision  (action) based on the available information (state)
-        /// </summary>
-        /// <param name="State"></param>
-        /// <returns>Return the next action based on the current policy and provided state</returns>
-        Int64 GetAction(Int64 State);
+        /// Agents decision  (action) based on the available information (state) and policy
+        /// </summary>     
+        public int MakeDecision()
+        {
+            return ExplorationPolicy.ChooseAction(this.State);
+        }
 
         /// <summary>
         /// Update the current state with the new state 
@@ -66,6 +57,10 @@ namespace MLBlackjack.models
         /// <param name="Action">
         /// The action taken to transition to the new state
         /// </param>
-        void UpdateState(Int64 State, Int64 Action, double Reward);
+        public void UpdateState(long State, int Action, double Reward)
+        {
+            ExplorationPolicy.UpdatePolicy(State, this.State, Action, Reward);
+            this.State = State;
+        }
     }
 }
