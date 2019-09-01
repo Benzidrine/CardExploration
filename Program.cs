@@ -53,18 +53,21 @@ namespace CardExploration
             Game game = new Game(1);
             IGameState initial = game.NewRound(0);
             Player player = new Player(Policy);
+            
+            long counter = 0;
 
-            for (int i = 0; i < 1000000; i++)
+            while (initial.Reward > 0.0)
             {
                 initial = game.Transition(player.Receive(initial.State, initial.Reward));
+                counter++;
             }
 
             //Player Score
-            Console.WriteLine(player.Reward.ToString());
+            Console.WriteLine("Number of Rounds " + counter.ToString());
             
             //Write End Time
             Task.Run(() => TimeRecordManager.RecordTime("endTime"));
-
+            Console.ReadLine();
             ///  
             ///    |----Agent------|
             ///    |               |

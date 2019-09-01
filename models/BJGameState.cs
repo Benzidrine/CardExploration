@@ -12,16 +12,23 @@ namespace CardExploration.models
         ///<summery>
         public List<card> PlayerHand {get;set;}
         public List<card> DealerHand {get;set;}
-        public double Reward {get; set;}
+        public Int32 Reward {get; set;}
         public long State {get; set;}
         public BJGameState() {
             this.PlayerHand = new List<card>();
             this.DealerHand = new List<card>();
-            this.Reward = 0.0;
+            this.Reward = 0;
             UpdateState();
         }
 
-        public BJGameState(List<card> PlayerHand, List<card> DealerHand, double Reward) {
+        public BJGameState(Int32 Reward) {
+            this.PlayerHand = new List<card>();
+            this.DealerHand = new List<card>();
+            this.Reward = Reward;
+            UpdateState();
+        }
+
+        public BJGameState(List<card> PlayerHand, List<card> DealerHand, Int32 Reward) {
             this.PlayerHand = PlayerHand;
             this.DealerHand = DealerHand;
             this.Reward = Reward;
