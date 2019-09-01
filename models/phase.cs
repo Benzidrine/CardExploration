@@ -3,7 +3,7 @@ using System;
 namespace MLBlackjack.models
 {
     //phase of player in game
-    public enum phase
+    public enum Phase
     {
         bust,
         revealCards,

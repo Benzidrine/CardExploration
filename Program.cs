@@ -36,7 +36,7 @@ namespace MLBlackjack
             
             // Single deck game instance
             Game game = new Game(1);
-            Tuple<Int64,double> initial = game.NewRound(0);
+            Tuple<long, double> initial = game.NewRound(0);
             Player player = new Player();
 
             for (int i = 0; i < 1000000; i++)
@@ -45,7 +45,7 @@ namespace MLBlackjack
             }
 
             //Player Score
-            Console.WriteLine(player.score.ToString());
+            Console.WriteLine(player.Reward.ToString());
 
             ///  
             ///    |----Agent------|
