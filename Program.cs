@@ -2,7 +2,10 @@
 using System.Linq;
 using CardExploration.models;
 using CardExploration.extensions;
-
+using System.IO;
+using CardExploration.DatabaseContext;
+using System.Threading.Tasks;
+using CardExploration.Manager;
 
 namespace CardExploration
 {
@@ -10,10 +13,21 @@ namespace CardExploration
     {
         static void Main(string[] args)
         {
+            Console.ReadLine();
+            // Example Database Call
+            using (var dbContext = new RecordDbContext())
+            {
+                foreach (var tr in dbContext.TimeRecords)
+                {
+                    Console.WriteLine(tr.TimeRecordId.ToString());
+                }
+            }
+            //Write Start Time
+            Task.Run(() => TimeRecordManager.RecordTime("startTime"));
+            
             deck Deck = new deck(1);
             BasicPolicy Policy = new BasicPolicy();
 
-            Console.ReadLine();
             // Demonstrate Card Total
             Console.WriteLine(Deck.Cards.CardTotal().ToString());
             
@@ -47,6 +61,9 @@ namespace CardExploration
 
             //Player Score
             Console.WriteLine(player.Reward.ToString());
+            
+            //Write End Time
+            Task.Run(() => TimeRecordManager.RecordTime("endTime"));
 
             ///  
             ///    |----Agent------|
