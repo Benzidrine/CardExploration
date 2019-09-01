@@ -9,7 +9,7 @@ namespace CardExploration.Interfaces
     interface IEnvironment
     {
         
-        Tuple<long, double> Transition(int playerAction);
+        IGameState Transition(int playerAction);
         long ReturnState();
 
     }

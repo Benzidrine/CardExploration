@@ -8,7 +8,7 @@ namespace CardExploration.Interfaces
     /// The agent interacts with the environment according to a defined policy 
     /// and a set of constraints i.e. the action space and state space
     /// </summary>
-    public abstract class Agent
+    public class Agent
     {
 
 
@@ -29,7 +29,7 @@ namespace CardExploration.Interfaces
         /// The exploration policy defines the behaviour of the agent
         /// can change over time
         /// </summary>
-        private IExplorationPolicy ExplorationPolicy { get; set; }
+        public IExplorationPolicy ExplorationPolicy { get; private set; }
 
         public Agent(IExplorationPolicy ExplorationPolicy)
         {
