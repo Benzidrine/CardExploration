@@ -1,6 +1,6 @@
 using System;
 
-namespace MLBlackjack.models
+namespace CardExploration.models
 {
     //phase of player in game
     public enum Phase

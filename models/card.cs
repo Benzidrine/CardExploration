@@ -1,4 +1,4 @@
-namespace MLBlackjack.models
+namespace CardExploration.models
 {
     public class card
     {

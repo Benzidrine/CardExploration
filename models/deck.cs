@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MLBlackjack.models
+namespace CardExploration.models
 {
     /// The state that the agent stores is the history of cards revealed by the dealer Store the as a vector 1..11 where an ace can be moved from 1->11 at will
     /// The agent is expected to identify the 21 sum rule total we don't tell it Its only feedback is the amount of money it currently has i.e reward

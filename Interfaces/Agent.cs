@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MLBlackjack.models
+namespace CardExploration.Interfaces
 {
     /// <summary>
     /// The agent interacts with the environment according to a defined policy 

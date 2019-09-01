@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MLBlackjack.models
+namespace CardExploration.Interfaces
 {
     /// <summary>
     /// Defines an Exploration Policy that the agent can adopt
@@ -30,7 +30,7 @@ namespace MLBlackjack.models
         /// <summary>
         /// Epsilon quantifies the exploration rate instance.
         /// </summary>
-        float Epsilon { get; set; }
+        double Epsilon { get; set; }
 
         /// <summary>
         ///Given the current state provides the next action to be taken

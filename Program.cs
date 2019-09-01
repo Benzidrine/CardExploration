@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Linq;
-using MLBlackjack.models;
-using MLBlackjack.extensions;
 using CardExploration.models;
+using CardExploration.extensions;
 
-namespace MLBlackjack
+
+namespace CardExploration
 {
     class Program
     {
         static void Main(string[] args)
         {
             deck Deck = new deck(1);
+            BasicPolicy Policy = new BasicPolicy();
 
             Console.ReadLine();
             // Demonstrate Card Total
@@ -37,11 +38,11 @@ namespace MLBlackjack
             // Single deck game instance
             Game game = new Game(1);
             Tuple<long, double> initial = game.NewRound(0);
-            Player player = new Player();
+            Player player = new Player(Policy);
 
             for (int i = 0; i < 1000000; i++)
             {
-                initial = game.Transition(player.Receive(initial));
+                initial = game.Transition(player.Receive(initial.Item1, initial.Item2));
             }
 
             //Player Score
