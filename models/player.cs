@@ -19,7 +19,7 @@ namespace MLBlackjack.models
         }
 
         //Take State And Reward and send action
-        public PlayerAction Receive(Tuple<Int64,double> GameInfo)
+        public int Receive(Tuple<Int64,double> GameInfo)
         {
             score += GameInfo.Item2;
             return MakeDecision(GameInfo.Item1);

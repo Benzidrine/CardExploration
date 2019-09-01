@@ -3,6 +3,9 @@ using System.Linq;
 using MLBlackjack.models;
 using MLBlackjack.extensions;
 using CardExploration.models;
+using CardExploration.DatabaseContext;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace MLBlackjack
 {
@@ -10,6 +13,28 @@ namespace MLBlackjack
     {
         static void Main(string[] args)
         {
+            string dbName = "TimeRecord.db";
+            if (File.Exists(dbName))
+            {
+                File.Delete(dbName);
+            }
+            using (var dbContext = new RecordDbContext())
+            {
+                dbContext.Database.EnsureCreated();
+                if (!dbContext.TimeRecords.Any())
+                {
+                    dbContext.TimeRecords.AddRange(new TimeRecord[]
+                        {
+                            new TimeRecord(){Time = DateTime.Now.ToString(), Process = "test"}
+                        });
+                    dbContext.SaveChanges();
+                }
+                foreach (var tr in dbContext.TimeRecords)
+                {
+                    Console.WriteLine(tr.TimeRecordId.ToString());
+                }
+            }
+
             deck Deck = new deck(1);
 
             Console.ReadLine();
