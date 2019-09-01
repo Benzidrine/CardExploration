@@ -21,16 +21,17 @@ namespace CardExploration.models
         {
             NumOfDecks = numOfDecks;
             GameDeck = new deck(NumOfDecks);
-            GameState = new BJGameState();
+            GameState = new BJGameState(10);
 
         }
 
         //Reward is passed through depending on context like new round after win or loss or game beginning
-        public IGameState NewRound(double reward)
+        public IGameState NewRound(Int32 Reward)
         {
             ReshuffleIfNeccessary();
             DealInitialCardsToPlayer();
             DealInitialCardsToDealer();
+            GameState.Reward += Reward;
             return GameState;
         }
 
@@ -61,7 +62,7 @@ namespace CardExploration.models
                         }
                         else
                         {
-                            return new BJGameState();
+                            return  GameState;
                         }
                     case PlayerAction.stand:
                         // TODO: Check for dealer Bust
