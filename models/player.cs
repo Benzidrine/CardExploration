@@ -11,6 +11,7 @@ namespace CardExploration.models
         List<card> Hand { get; set; }
         Phase Phase { get; set; }
         public double Reward { get; private set; }
+
         public Player(IExplorationPolicy ExplorationPolicy) : base(ExplorationPolicy) { }
 
         public int Receive(long State, double Reward)
@@ -21,9 +22,7 @@ namespace CardExploration.models
         }
         private int MakeDecision(long State)
         {
-            //Random Placeholder
-            Random rnd = new Random();
-            return rnd.Next(0, 2);
+            return ExplorationPolicy.ChooseAction(State);
         }
     }
 }

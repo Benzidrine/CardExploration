@@ -51,12 +51,12 @@ namespace CardExploration
             
             // Single deck game instance
             Game game = new Game(1);
-            Tuple<long, double> initial = game.NewRound(0);
+            IGameState initial = game.NewRound(0);
             Player player = new Player(Policy);
 
             for (int i = 0; i < 1000000; i++)
             {
-                initial = game.Transition(player.Receive(initial.Item1, initial.Item2));
+                initial = game.Transition(player.Receive(initial.State, initial.Reward));
             }
 
             //Player Score
