@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
-using MLBlackjack.models;
+using CardExploration.models;
 
-namespace MLBlackjack.extensions
+namespace CardExploration.extensions
 {
     public static class extensions
     {
