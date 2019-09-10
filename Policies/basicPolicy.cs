@@ -1,5 +1,6 @@
 using System;
 using CardExploration.Interfaces;
+using CardExploration.models;
 
 namespace CardExploration.models
 {
@@ -9,7 +10,7 @@ namespace CardExploration.models
         public long NumActions {get; set;}
         public double Epsilon {get; set;}
 
-        public int ChooseAction(long State){
+        public int ChooseAction(long State, Enum Actions){
             //Random Placeholder
             Random rnd = new Random();
             return rnd.Next(0, 2);
@@ -21,6 +22,11 @@ namespace CardExploration.models
 
         public long GetQValue(long State, int Action){
             return 1;
+        }
+
+        double IExplorationPolicy.GetQValue(long State, int Action)
+        {
+            throw new NotImplementedException();
         }
     }
 }
