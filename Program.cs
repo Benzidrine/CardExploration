@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CardExploration.models;
+using CardExploration.Interfaces;
 using CardExploration.extensions;
 using System.IO;
 using CardExploration.DatabaseContext;
@@ -15,16 +16,16 @@ namespace CardExploration
         {
             Console.ReadLine();
             // Example Database Call
-            using (var dbContext = new RecordDbContext())
+/*            using (var dbContext = new RecordDbContext())
             {
                 foreach (var tr in dbContext.TimeRecords)
                 {
                     Console.WriteLine(tr.TimeRecordId.ToString());
                 }
-            }
+            }*/
             //Write Start Time
-            Task.Run(() => TimeRecordManager.RecordTime("startTime"));
-            
+/*            Task.Run(() => TimeRecordManager.RecordTime("startTime"));
+*/            
             deck Deck = new deck(1);
             BasicPolicy Policy = new BasicPolicy();
 
@@ -66,7 +67,7 @@ namespace CardExploration
             Console.WriteLine("Number of Rounds " + counter.ToString());
             
             //Write End Time
-            Task.Run(() => TimeRecordManager.RecordTime("endTime"));
+/*            Task.Run(() => TimeRecordManager.RecordTime("endTime"));*/
             Console.ReadLine();
             ///  
             ///    |----Agent------|
