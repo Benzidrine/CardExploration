@@ -1,7 +1,7 @@
 using System;
 
 
-namespace CardExploration.models
+namespace CardExploration.Interfaces
 {
     public interface IGameState
     {

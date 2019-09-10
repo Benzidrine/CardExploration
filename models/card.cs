@@ -1,13 +1,15 @@
+using System;
+using System.Collections;
 namespace CardExploration.models
 {
-    public class card
+    public class card : IComparable
     {
         public card()
         {
 
         }
 
-        public card(int id, int value, int suit)
+        public card(int id, int value, int suit) 
         {
             /// <summary>
             /// instantiate the card object with a id, value and suit
@@ -30,6 +32,20 @@ namespace CardExploration.models
             //value = ((position - (position % 4)) / 4) + 1
             int value = ((Position - (Position % 4)) / 4) + 1;
             return new card(0,value,suit);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            if (obj is card Card)
+                return Card.value.CompareTo(this.value);
+            else
+                throw new ArgumentException("Object is not a card");
+        }
+
+        override public String ToString()
+        {
+            return value.ToString();
         }
     }
 }
