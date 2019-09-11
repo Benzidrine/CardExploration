@@ -21,7 +21,7 @@ namespace CardExploration.models
         {
             NumOfDecks = numOfDecks;
             GameDeck = new deck(NumOfDecks);
-            GameState = new BJGameState(10);
+            GameState = new BJGameState(100);
 
         }
 

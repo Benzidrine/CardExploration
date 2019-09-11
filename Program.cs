@@ -3,6 +3,7 @@ using System.Linq;
 using CardExploration.models;
 using CardExploration.Interfaces;
 using CardExploration.extensions;
+using CardExploration.Policies;
 using System.IO;
 using CardExploration.DatabaseContext;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace CardExploration
         {
             Console.ReadLine();
             // Example Database Call
+            //this call fails as there are no time records in the database
 /*            using (var dbContext = new RecordDbContext())
             {
                 foreach (var tr in dbContext.TimeRecords)
@@ -24,11 +26,11 @@ namespace CardExploration
                 }
             }*/
             //Write Start Time
-/*            Task.Run(() => TimeRecordManager.RecordTime("startTime"));
-*/            
-            deck Deck = new deck(1);
-            BasicPolicy Policy = new BasicPolicy();
+            Task.Run(() => TimeRecordManager.RecordTime("startTime"));
 
+            deck Deck = new deck(1);
+            IExplorationPolicy Policy = new Qlearning(0.5);
+            PlayerAction Actions = new PlayerAction();
             // Demonstrate Card Total
             Console.WriteLine(Deck.Cards.CardTotal().ToString());
             
@@ -59,7 +61,7 @@ namespace CardExploration
 
             while (initial.Reward > 0.0)
             {
-                initial = game.Transition(player.Receive(initial.State, initial.Reward));
+                initial = game.Transition(player.Receive(initial.State, Actions, initial.Reward));
                 counter++;
             }
 

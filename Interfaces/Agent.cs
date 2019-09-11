@@ -10,20 +10,10 @@ namespace CardExploration.Interfaces
     /// </summary>
     public class Agent
     {
-
-
         /// <summary>
         /// Store the agents model of the world in a state variable as a markov chain
         /// </summary>
         public long State { get; set; }
-
-        /// <summary>
-        /// how valuable are future rewards compared to present rewards
-        /// this allows for uncertainty of future expected rewards to be incorported 
-        /// i.e. the agent should never be 100% about the future
-        /// can change over time
-        /// </summary>
-        public double DiscountFactor { get; set; }
 
         /// <summary>
         /// The exploration policy defines the behaviour of the agent
@@ -39,9 +29,9 @@ namespace CardExploration.Interfaces
         /// <summary>
         /// Agents decision  (action) based on the available information (state) and policy
         /// </summary>     
-        public int MakeDecision()
+        public int MakeDecision(Enum Actions)
         {
-            return ExplorationPolicy.ChooseAction(this.State);
+            return ExplorationPolicy.ChooseAction(this.State, Actions);
         }
 
         /// <summary>

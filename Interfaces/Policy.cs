@@ -35,13 +35,13 @@ namespace CardExploration.Interfaces
         /// <summary>
         ///Given the current state provides the next action to be taken
         /// </summary>
-        int ChooseAction(long State);
+        int ChooseAction(long State, Enum Actions);
 
         /// <summary>
         ///Provides the utility of being in the provided state and taking the provided action i.e expected reward
         ///Quality of taking the action given the current state
         /// </summary>
-        long GetQValue(long State, int Action);
+        double GetQValue(long State, int Action);
 
         /// <summary>
         ///Given a list of States and Actions taken plus a final reward or rewards for them the policy should update 

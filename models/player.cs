@@ -14,15 +14,15 @@ namespace CardExploration.models
 
         public Player(IExplorationPolicy ExplorationPolicy) : base(ExplorationPolicy) { }
 
-        public int Receive(long State, double Reward)
+        public int Receive(long State, Enum Actions, double Reward)
         {
-            int Action = MakeDecision(State);
+            int Action = MakeDecision(State, Actions);
             UpdateState(State, Action, Reward); 
             return Action;
         }
-        private int MakeDecision(long State)
+        private int MakeDecision(long State, Enum Actions)
         {
-            return ExplorationPolicy.ChooseAction(State);
+            return ExplorationPolicy.ChooseAction(State, Actions);
         }
     }
 }
