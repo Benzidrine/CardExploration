@@ -19,9 +19,9 @@ namespace CardExploration.models
         public long State {
             get
             {
-                this.DealerHand.Sort();
+                this.DealerHand.Sort(); //reduce dimension space 
                 this.PlayerHand.Sort();
-                this.State = long.Parse(string.Concat(DealerHand) + string.Concat(PlayerHand));
+                this.State = (string.Concat(DealerHand) + string.Concat(PlayerHand)).GetStableHashCode();
                 return state;
             }
             set { state = value; }
@@ -42,12 +42,6 @@ namespace CardExploration.models
             this.PlayerHand = PlayerHand;
             this.DealerHand = DealerHand;
             this.Reward = Reward;
-        }
-
-        void UpdateState(){
-            this.DealerHand.Sort();
-            this.PlayerHand.Sort();
-            this.State = long.Parse(string.Concat(DealerHand) + string.Concat(PlayerHand));
         }
 
     }
