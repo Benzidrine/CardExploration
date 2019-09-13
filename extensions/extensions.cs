@@ -8,15 +8,15 @@ namespace CardExploration.extensions
 {
     public static class extensions
     {
-        public static int GetStableHashCode(this string str)
+        public static long GetStableHashCode(this string str)
         {
             ///<summery>
             ///64 bit reproducible hashing algorithm for non-cryptographic purposes
             ///<summery>
             unchecked
             {
-                int hash1 = 5381;
-                int hash2 = hash1;
+                long hash1 = 5381; //prime
+                long hash2 = hash1;
 
                 for(int i = 0; i < str.Length && str[i] != '\0'; i += 2)
                 {
@@ -26,7 +26,7 @@ namespace CardExploration.extensions
                     hash2 = ((hash2 << 5) + hash2) ^ str[i+1];
                 }
 
-                return hash1 + (hash2*1566083941);
+                return hash1 + (hash2*1566083941); //prime
             }
         }
         public static void Shuffle<T>(this IList<T> list)
