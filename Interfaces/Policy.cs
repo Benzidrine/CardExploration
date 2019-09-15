@@ -8,7 +8,7 @@ namespace CardExploration.Interfaces
     /// Defines an Exploration Policy that the agent can adopt
     /// The Polciy should balance explotation vs exploration via the Epsilon value
     /// </summary>
-    public interface IExplorationPolicy
+    public interface IExplorationPolicy <T>
     {
         /// <summary>
         /// The total number of states that the agent can exist in 
@@ -35,19 +35,19 @@ namespace CardExploration.Interfaces
         /// <summary>
         ///Given the current state provides the next action to be taken
         /// </summary>
-        int ChooseAction(long State, Enum Actions);
+        int ChooseAction(List<T> State, Enum Actions);
 
         /// <summary>
         ///Provides the utility of being in the provided state and taking the provided action i.e expected reward
         ///Quality of taking the action given the current state
         /// </summary>
-        double GetQValue(long State, int Action);
+        double GetQValue(List<T> State, int Action);
 
         /// <summary>
         ///Given a list of States and Actions taken plus a final reward or rewards for them the policy should update 
         ///such that is maximises the reward.
         /// </summary>
-        void UpdatePolicy(long PastState, long CurrentState, int Action, double Reward);
+        void UpdatePolicy(List<T> PastState, List<T> CurrentState, int Action, double Reward);
 
     }
 }

@@ -8,7 +8,7 @@ namespace CardExploration.models
 {
 
     //Should inherit most of this from an environment class in future
-    public class Game : IEnvironment
+    public class Game : IEnvironment<card>
     {
         public BJGameState GameState {get; set;}
         public long state {get; set;}
@@ -26,7 +26,7 @@ namespace CardExploration.models
         }
 
         //Reward is passed through depending on context like new round after win or loss or game beginning
-        public IGameState NewRound(Int32 Reward)
+        public IGameState<card> NewRound(Int32 Reward)
         {
             ReshuffleIfNeccessary();
             DealInitialCardsToPlayer();
@@ -40,7 +40,7 @@ namespace CardExploration.models
             return Convert.ToInt64(GameState.PlayerHand.CardsToLiteralKey(),2);
         }
         
-        public IGameState Transition(int playerActionInput)
+        public IGameState<card> Transition(int playerActionInput)
         {
             if (Enum.TryParse(typeof(PlayerAction),playerActionInput.ToString(),true,out var playerAction))
             {

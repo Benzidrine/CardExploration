@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using CardExploration.models;
 using CardExploration.Interfaces;
 using CardExploration.extensions;
@@ -29,7 +30,7 @@ namespace CardExploration
             Task.Run(() => TimeRecordManager.RecordTime("startTime"));
 
             deck Deck = new deck(1);
-            IExplorationPolicy Policy = new Qlearning(0.5);
+            IExplorationPolicy<List<card>> Policy = new Qlearning<List<card>>(0.01, 0.99);
             PlayerAction Actions = new PlayerAction();
             // Demonstrate Card Total
             Console.WriteLine(Deck.Cards.CardTotal().ToString());
@@ -54,8 +55,8 @@ namespace CardExploration
             
             // Single deck game instance
             Game game = new Game(1);
-            IGameState initial = game.NewRound(0);
-            Player player = new Player(Policy);
+            IGameState<card> initial = game.NewRound(0);
+            Player<List<card>> player = new Player<List<card>>(Policy);
             
             long counter = 0;
 

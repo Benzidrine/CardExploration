@@ -132,7 +132,8 @@ namespace CardExploration.extensions
             return cards;
         }
 
-        public static class ThreadSafeRandom
+    }
+            public static class ThreadSafeRandom
         {
             [ThreadStatic] private static Random Local;
 
@@ -141,5 +142,5 @@ namespace CardExploration.extensions
                 get { return Local ?? (Local = new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId))); }
             }
         }
-    }
+
 }

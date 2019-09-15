@@ -6,10 +6,10 @@ using CardExploration.models;
 
 namespace CardExploration.Interfaces
 {
-    interface IEnvironment
+    interface IEnvironment<T>
     {
         
-        IGameState Transition(int playerAction);
+        IGameState<T> Transition(int playerAction);
         long ReturnState();
 
     }
