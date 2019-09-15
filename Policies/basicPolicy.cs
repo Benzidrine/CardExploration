@@ -1,32 +1,30 @@
 using System;
+using System.Collections.Generic;
 using CardExploration.Interfaces;
 using CardExploration.models;
 
 namespace CardExploration.models
 {
-    public class BasicPolicy : IExplorationPolicy {
+    public class BasicPolicy : IExplorationPolicy<int>
+     {
 
         public long NumStates {get; set;}
         public long NumActions {get; set;}
         public double Epsilon {get; set;}
 
-        public int ChooseAction(long State, Enum Actions){
+        public int ChooseAction(List<int> State, Enum Actions){
             //Random Placeholder
             Random rnd = new Random();
             return rnd.Next(0, 2);
     }
 
-        public void UpdatePolicy(long PastState, long CurrentState, int Action, double Reward){
+        public void UpdatePolicy(List<int> PastState, List<int> CurrentState, int Action, double Reward){
 
         }
 
-        public long GetQValue(long State, int Action){
-            return 1;
+        public double GetQValue(List<int> State, int Action){
+            return 1.0;
         }
 
-        double IExplorationPolicy.GetQValue(long State, int Action)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

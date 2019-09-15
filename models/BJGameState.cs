@@ -6,7 +6,7 @@ using CardExploration.Interfaces;
 
 namespace CardExploration.models
 {
-    public class BJGameState : IGameState
+    public class BJGameState : IGameState<card>
     {
         ///<summery>
         ///Stores aspects of the game state including player hand, dealer hand and  current reward
@@ -14,14 +14,16 @@ namespace CardExploration.models
         public List<card> PlayerHand { get; set; }
         public List<card> DealerHand { get; set; }
         public Int32 Reward {get; set;}
-        private long state;
+        private List<List<card>> state;
 
-        public long State {
+        public List<List<card>> State {
             get
             {
                 this.DealerHand.Sort();
                 this.PlayerHand.Sort();
-                this.State = long.Parse(string.Concat(DealerHand) + string.Concat(PlayerHand));
+                this.State = new List<List<card>>();
+                this.State.Add(DealerHand.Take(1).ToList()); //only first card
+                this.State.Add(PlayerHand);
                 return state;
             }
             set { state = value; }
@@ -42,12 +44,6 @@ namespace CardExploration.models
             this.PlayerHand = PlayerHand;
             this.DealerHand = DealerHand;
             this.Reward = Reward;
-        }
-
-        void UpdateState(){
-            this.DealerHand.Sort();
-            this.PlayerHand.Sort();
-            this.State = long.Parse(string.Concat(DealerHand) + string.Concat(PlayerHand));
         }
 
     }

@@ -8,20 +8,20 @@ namespace CardExploration.Interfaces
     /// The agent interacts with the environment according to a defined policy 
     /// and a set of constraints i.e. the action space and state space
     /// </summary>
-    public class Agent
+    public class Agent<T>
     {
         /// <summary>
         /// Store the agents model of the world in a state variable as a markov chain
         /// </summary>
-        public long State { get; set; }
+        public List<T> State { get; set; }
 
         /// <summary>
         /// The exploration policy defines the behaviour of the agent
         /// can change over time
         /// </summary>
-        public IExplorationPolicy ExplorationPolicy { get; private set; }
+        public IExplorationPolicy<T> ExplorationPolicy { get; private set; }
 
-        public Agent(IExplorationPolicy ExplorationPolicy)
+        public Agent(IExplorationPolicy<T> ExplorationPolicy)
         {
             this.ExplorationPolicy = ExplorationPolicy;
         }
@@ -47,7 +47,7 @@ namespace CardExploration.Interfaces
         /// <param name="Action">
         /// The action taken to transition to the new state
         /// </param>
-        public void UpdateState(long State, int Action, double Reward)
+        public void UpdateState(List<T> State, int Action, double Reward)
         {
             ExplorationPolicy.UpdatePolicy(State, this.State, Action, Reward);
             this.State = State;
