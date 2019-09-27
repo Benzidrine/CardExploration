@@ -43,7 +43,6 @@ namespace CardExploration.models
         {
             if (Enum.TryParse(typeof(PlayerAction),playerActionInput.ToString(),true,out var playerAction))
             {
-                playerAction = PlayerAction.hit;
                 switch (playerAction)
                 {
                     case PlayerAction.hit:
