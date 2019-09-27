@@ -11,7 +11,6 @@ namespace CardExploration.models
     public class Game : IEnvironment<card>
     {
         public BJGameState GameState {get; set;}
-        public long state {get; set;}
         deck GameDeck {get;set;}
         List<card> DiscardedCards {get;set;}
         //Num of Decks is also the base number for state here
@@ -44,6 +43,7 @@ namespace CardExploration.models
         {
             if (Enum.TryParse(typeof(PlayerAction),playerActionInput.ToString(),true,out var playerAction))
             {
+                playerAction = PlayerAction.hit;
                 switch (playerAction)
                 {
                     case PlayerAction.hit:
@@ -59,6 +59,7 @@ namespace CardExploration.models
                         if (GameState.PlayerHand.BlackjackTotal() > 21 )
                         {
                             return NewRound(-1);
+        
                         }
                         else
                         {

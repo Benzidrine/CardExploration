@@ -5,14 +5,14 @@ using CardExploration.models;
 
 namespace CardExploration.models
 {
-    public class BasicPolicy : IExplorationPolicy<int>
+    public class BasicPolicy : IExplorationPolicy
      {
 
         public long NumStates {get; set;}
         public long NumActions {get; set;}
         public double Epsilon {get; set;}
 
-        public int ChooseAction(List<int> State, Enum Actions){
+        public int ChooseAction(List<int> State, IEnumerable<int> Actions){
             //Random Placeholder
             Random rnd = new Random();
             return rnd.Next(0, 2);

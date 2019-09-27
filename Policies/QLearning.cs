@@ -7,7 +7,9 @@ using CardExploration.extensions;
 
 namespace CardExploration.Policies
 {
-    class Qlearning<T>  : IExplorationPolicy <T> 
+    using ATable = Dictionary<int, double>;
+    using Qtable = Dictionary<String, Dictionary<int, double>>;
+    class Qlearning  : IExplorationPolicy
     {
         /// <summary>
         /// how valuable are future rewards compared to present rewards
@@ -21,32 +23,26 @@ namespace CardExploration.Policies
         public long NumStates { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public long NumActions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public double Epsilon { get; set; }
-        private Dictionary<string, ActionTable> QTable;
+        private Qtable QTable;
 
         public Qlearning(double Epsilon, double DiscountFactor)
         {
-            QTable = new Dictionary<string, ActionTable>();
+            QTable = new Qtable();
             this.Epsilon = Epsilon;
             this.DiscountFactor = DiscountFactor;
 
         }
 
-        public int ChooseAction(List<T> State, Enum Actions)
+        public int ChooseAction(List<int> State, IEnumerable<int> Actions)
         {
-            if (!QTable.ContainsKey(State.ToString()))
-            {
-                QTable.Add(State.ToString(),
-                           Enum.GetValues(Actions.GetType())
-                                         .Cast<int>()
-                                         .ToDictionary(k => k, v => 0.0));
-            }
-            return Choose(QTable[State.ToString()]);
-
+            string key = String.Concat(State);
+            IEnumerable<int> Values = from Action in Actions select (int)GetQValue(State, Action);
+            return Choose(Values.ToList());
         }
 
-        public double GetQValue(List<T> State, int Action)
+        public double GetQValue(List<int> State, int Action)
         {
-            if (QTable.TryGetValue(State.ToString(), out Dictionary<int, double> Value))
+            if (QTable.TryGetValue(String.Concat(State), out ATable Value))
             {
                 if (Value.TryGetValue(Action, out double value))
                 {
@@ -60,36 +56,43 @@ namespace CardExploration.Policies
             }
             else
             {
-                QTable.Add(State.ToString(), new Dictionary<int, ActionTable>());
+                ATable ATable = new ATable();
+                ATable.Add(Action, 0.0);
+                QTable.Add(String.Concat(State), ATable);
                 return 0;
             }
         }
 
-        public void UpdatePolicy(List<T> PastState, List<T> CurrentState, int Action, double Reward)
-        {
-            if (QTable.TryGetValue(CurrentState.ToString(), out Dictionary<int, double> Values))
-            {
-                QTable[PastState.ToString()][Action] = (1.0 - Epsilon) * GetQValue(PastState, Action) + Epsilon * (Reward + DiscountFactor * Values.Values.Max());
-            }
-            else
-            {
-                QTable[PastState.ToString()][Action] = (1.0 - Epsilon) * GetQValue(PastState, Action) + Epsilon * Reward;
-            }
-
+        public double getMaxQValue(List<int> State){
+           if (QTable.TryGetValue(String.Concat(State), out ATable Values)){
+               return Values.Values.Max();
+           } else {
+               return 0.0;
+           }
         }
 
-        private int Choose(Dictionary<int, Double> Value)
+        public void UpdatePolicy(List<int> PastState, List<int> CurrentState, int Action, double Reward)
         {
-            ///<summary>Choose an key from the Dictionary weighted on its values</summary>
-            if(ThreadSafeRandom.ThisThreadsRandom.Next(100) == 1)
-            {
-                int select = ThreadSafeRandom.ThisThreadsRandom.Next(Value.Count()-1);
-                return Value.Keys.ToList()[select];
-            } else 
-            {
-                return Value.Select(x => x.Value == Value.Values.Max())
-            }
+            QTable[String.Concat(PastState)][Action] = (1.0 - Epsilon) * GetQValue(PastState, Action) + Epsilon * (Reward + DiscountFactor * getMaxQValue(CurrentState));
         }
+
+        private int Choose(List<int> Values){
+            int Action = 0;
+            Values.Sort();
+            int M = Values.Max();
+            int R = ThreadSafeRandom.ThisThreadsRandom.Next(M);
+            foreach(int value in Values){
+                R -= value;
+                if(R <= 0){
+                    break;
+                }
+                Action++;
+            }
+            return Action;
+        }
+
+
+        
     }
         
 }

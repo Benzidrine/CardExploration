@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
+using System.Diagnostics;
 namespace CardExploration.Interfaces
 {
     /// <summary>
     /// The agent interacts with the environment according to a defined policy 
     /// and a set of constraints i.e. the action space and state space
     /// </summary>
-    public class Agent<T>
+    public class Agent
     {
         /// <summary>
         /// Store the agents model of the world in a state variable as a markov chain
         /// </summary>
-        public List<T> State { get; set; }
+        private List<int> PastState { get; set; }
 
         /// <summary>
         /// The exploration policy defines the behaviour of the agent
         /// can change over time
         /// </summary>
-        public IExplorationPolicy<T> ExplorationPolicy { get; private set; }
+        public IExplorationPolicy ExplorationPolicy { get; private set; }
 
-        public Agent(IExplorationPolicy<T> ExplorationPolicy)
+        public Agent(IExplorationPolicy ExplorationPolicy)
         {
             this.ExplorationPolicy = ExplorationPolicy;
         }
@@ -29,9 +30,10 @@ namespace CardExploration.Interfaces
         /// <summary>
         /// Agents decision  (action) based on the available information (state) and policy
         /// </summary>     
-        public int MakeDecision(Enum Actions)
+        public int MakeDecision(List<int> State, IEnumerable<int> Actions)
         {
-            return ExplorationPolicy.ChooseAction(this.State, Actions);
+            PastState = State;
+            return ExplorationPolicy.ChooseAction(State, Actions);
         }
 
         /// <summary>
@@ -47,10 +49,9 @@ namespace CardExploration.Interfaces
         /// <param name="Action">
         /// The action taken to transition to the new state
         /// </param>
-        public void UpdateState(List<T> State, int Action, double Reward)
+        public void UpdatePolicy(List<int> State, int Action, double Reward)
         {
-            ExplorationPolicy.UpdatePolicy(State, this.State, Action, Reward);
-            this.State = State;
+            ExplorationPolicy.UpdatePolicy(this.PastState, State, Action, Reward);
         }
     }
 }

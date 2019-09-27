@@ -43,7 +43,7 @@ namespace CardExploration.models
                 throw new ArgumentException("Object is not a card");
         }
 
-        override public String ToString()
+        override public string ToString()
         {
             return value.ToString();
         }

@@ -9,7 +9,7 @@ namespace CardExploration.Interfaces
         ///Stores aspects of the game state including player hand, dealer hand and  current reward
         ///<summery>
         Int32 Reward {get; set;}
-        List<List<T>> State {get; set;}
+        List<int> GetState();
 
     }
 }

@@ -9,7 +9,7 @@ using System.IO;
 using CardExploration.DatabaseContext;
 using System.Threading.Tasks;
 using CardExploration.Manager;
-
+using System.Diagnostics;
 namespace CardExploration
 {
     class Program
@@ -17,58 +17,38 @@ namespace CardExploration
         static void Main(string[] args)
         {
             Console.ReadLine();
-            // Example Database Call
-            //this call fails as there are no time records in the database
-/*            using (var dbContext = new RecordDbContext())
-            {
-                foreach (var tr in dbContext.TimeRecords)
-                {
-                    Console.WriteLine(tr.TimeRecordId.ToString());
-                }
-            }*/
+
             //Write Start Time
             Task.Run(() => TimeRecordManager.RecordTime("startTime"));
+             string docPath =
+          Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             deck Deck = new deck(1);
-            IExplorationPolicy<List<card>> Policy = new Qlearning<List<card>>(0.01, 0.99);
+            IExplorationPolicy Policy = new Qlearning(0.01, 0.99);
             PlayerAction Actions = new PlayerAction();
-            // Demonstrate Card Total
-            Console.WriteLine(Deck.Cards.CardTotal().ToString());
-            
-            Deck.Cards.RemoveAt(51);
-            Deck.Cards.RemoveAt(13);
-            Deck.Cards.RemoveAt(4);
-
-            // Demonstrate Key Literal
-            Console.WriteLine(Deck.Cards.CardsToLiteralKey());
-
-            // Key Literal to unique value
-            Console.WriteLine(Convert.ToInt64(Deck.Cards.CardsToLiteralKey(),2)); 
-
-            // From unique value back to list
-            Deck.Cards = extensions.extensions.StateNumberToCardList(1,Convert.ToInt64(Deck.Cards.CardsToLiteralKey(),2));
-
-            // Demonstrate Key Literal with new list
-            Console.WriteLine(Deck.Cards.CardsToLiteralKey());
-
-            // Test Game Logic
-            
-            // Single deck game instance
-            Game game = new Game(1);
-            IGameState<card> initial = game.NewRound(0);
-            Player<List<card>> player = new Player<List<card>>(Policy);
-            
-            long counter = 0;
-
-            while (initial.Reward > 0.0)
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "learning rate.csv")))
             {
-                initial = game.Transition(player.Receive(initial.State, Actions, initial.Reward));
-                counter++;
-            }
+            for(int i=0; i<100000; i++){
+                    // Single deck game instance
+                    Game game = new Game(1);
+                    IGameState<card> initial = game.NewRound(0);
+                    Agent player = new Agent(Policy);
+                    
+                    long counter = 0;
 
-            //Player Score
-            Console.WriteLine("Number of Rounds " + counter.ToString());
-            
+                    while (initial.Reward > 0.0)
+                    {
+                        int action = player.MakeDecision(initial.GetState(), Enum.GetValues(Actions.GetType()).Cast<int>());
+                        initial = game.Transition(action);
+                        player.UpdatePolicy(initial.GetState(), action, initial.Reward);       
+                        counter++;
+                    }
+
+                    //Player Score
+                    outputFile.WriteLine(counter.ToString());
+                    Console.WriteLine("Number of Rounds " + counter.ToString());
+                }  
+            }
             //Write End Time
 /*            Task.Run(() => TimeRecordManager.RecordTime("endTime"));*/
             Console.ReadLine();
