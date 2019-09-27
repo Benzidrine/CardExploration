@@ -35,14 +35,14 @@ namespace CardExploration.Policies
 
         public int ChooseAction(List<int> State, IEnumerable<int> Actions)
         {
-            string key = String.Concat(State);
-            IEnumerable<int> Values = from Action in Actions select (int)GetQValue(State, Action);
+            string key = String.Join(",", State);
+            IEnumerable<double> Values = from Action in Actions select GetQValue(State, Action);
             return Choose(Values.ToList());
         }
 
         public double GetQValue(List<int> State, int Action)
         {
-            if (QTable.TryGetValue(String.Concat(State), out ATable Value))
+            if (QTable.TryGetValue(String.Join(",", State), out ATable Value))
             {
                 if (Value.TryGetValue(Action, out double value))
                 {
@@ -58,13 +58,13 @@ namespace CardExploration.Policies
             {
                 ATable ATable = new ATable();
                 ATable.Add(Action, 0.0);
-                QTable.Add(String.Concat(State), ATable);
+                QTable.Add(String.Join(",", State), ATable);
                 return 0;
             }
         }
 
         public double getMaxQValue(List<int> State){
-           if (QTable.TryGetValue(String.Concat(State), out ATable Values)){
+           if (QTable.TryGetValue(String.Join(",", State), out ATable Values)){
                return Values.Values.Max();
            } else {
                return 0.0;
@@ -73,26 +73,23 @@ namespace CardExploration.Policies
 
         public void UpdatePolicy(List<int> PastState, List<int> CurrentState, int Action, double Reward)
         {
-            QTable[String.Concat(PastState)][Action] = (1.0 - Epsilon) * GetQValue(PastState, Action) + Epsilon * (Reward + DiscountFactor * getMaxQValue(CurrentState));
+            QTable[String.Join(",", PastState)][Action] = (1.0 - Epsilon) * GetQValue(PastState, Action) + Epsilon * (Reward + DiscountFactor * getMaxQValue(CurrentState));
         }
 
-        private int Choose(List<int> Values){
+        private int Choose(List<double> Values){
+            List<double> Weights = Values.ConvertAll(v=>Math.Exp(v));
+            double MaxVal = Weights.Sum();
             int Action = 0;
-            Values.Sort();
-            int M = Values.Max();
-            int R = ThreadSafeRandom.ThisThreadsRandom.Next(M);
-            foreach(int value in Values){
-                R -= value;
-                if(R <= 0){
+            double R = ThreadSafeRandom.ThisThreadsRandom.NextDouble()*MaxVal;
+            foreach(double Weight in Weights){
+                R -= Weight;
+                if(R <= 0.0){
                     break;
                 }
                 Action++;
             }
             return Action;
         }
-
-
-        
     }
         
 }

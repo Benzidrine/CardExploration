@@ -26,13 +26,14 @@ namespace CardExploration
             deck Deck = new deck(1);
             IExplorationPolicy Policy = new Qlearning(0.01, 0.99);
             PlayerAction Actions = new PlayerAction();
+            Agent player = new Agent(Policy);
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "learning rate.csv")))
             {
             for(int i=0; i<100000; i++){
                     // Single deck game instance
                     Game game = new Game(1);
                     IGameState<card> initial = game.NewRound(0);
-                    Agent player = new Agent(Policy);
+                    
                     
                     long counter = 0;
 
@@ -50,7 +51,7 @@ namespace CardExploration
                 }  
             }
             //Write End Time
-/*            Task.Run(() => TimeRecordManager.RecordTime("endTime"));*/
+/*            Task.Run(() => TimeRecordManager.RecordTime("endTime"));*/ 
             Console.ReadLine();
             ///  
             ///    |----Agent------|

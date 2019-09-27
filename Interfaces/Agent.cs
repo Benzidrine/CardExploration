@@ -15,7 +15,7 @@ namespace CardExploration.Interfaces
         /// Store the agents model of the world in a state variable as a markov chain
         /// </summary>
         private List<int> PastState { get; set; }
-
+        private double PastReward {get; set;}
         /// <summary>
         /// The exploration policy defines the behaviour of the agent
         /// can change over time
@@ -51,7 +51,8 @@ namespace CardExploration.Interfaces
         /// </param>
         public void UpdatePolicy(List<int> State, int Action, double Reward)
         {
-            ExplorationPolicy.UpdatePolicy(this.PastState, State, Action, Reward);
+            ExplorationPolicy.UpdatePolicy(this.PastState, State, Action, this.PastReward - Reward);
+            this.PastReward = Reward;
         }
     }
 }
