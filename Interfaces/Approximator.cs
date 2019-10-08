@@ -16,7 +16,7 @@ namespace CardExploration.Interfaces
         /// A list of inputs that can be mapped to the output value
         /// </param>
         
-        double Value(List<Double> Features);
+        double Value(List<Double> Features, int Action);
     
         /// <summary>
         /// Return the gradient of the function with respect to the input features
@@ -24,7 +24,7 @@ namespace CardExploration.Interfaces
         /// <param name="Features">
         /// A list of inputs that can be mapped to the output value
         /// </param>
-        List<double> Gradient(List<Double> Features);
+        List<double> Gradient(List<Double> PFeatures, int Action);
 
         /// <summary>
         /// Return the log (base e) gradient of the function with respect to the input features
@@ -32,7 +32,7 @@ namespace CardExploration.Interfaces
         /// <param name="Features">
         /// A list of inputs that can be mapped to the output value
         /// </param>
-        List<double> LogGradient(List<Double> Features);
+        List<double> LogGradient(List<Double> PFeatures, int Action);
 
         
         /// <summary>
@@ -41,7 +41,7 @@ namespace CardExploration.Interfaces
         /// <param name="Features">
         /// A list of paramter updates that can be mapped to the output value
         /// </param>
-        void update(List<double> parameters);
+        void update(List<double> parameters, int Action);
 
     }
 }

@@ -51,7 +51,7 @@ namespace CardExploration.Interfaces
         /// </param>
         public void UpdatePolicy(List<int> State, int Action, double Reward)
         {
-            ExplorationPolicy.UpdatePolicy(this.PastState, State, Action, this.PastReward - Reward);
+            ExplorationPolicy.UpdatePolicy(this.PastState, State, Action, Reward-PastReward);
             this.PastReward = Reward;
         }
     }

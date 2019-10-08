@@ -24,17 +24,16 @@ namespace CardExploration
           Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             deck Deck = new deck(1);
-            IExplorationPolicy Policy = new Qlearning(0.01, 0.99);
+            IApproximator Qfunc = new LinearApproximator(10, 2);
+            IExplorationPolicy Policy = new RQlearning(0.0001, 0.99, Qfunc);
             PlayerAction Actions = new PlayerAction();
             Agent player = new Agent(Policy);
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "learning rate.csv")))
-            {
-            for(int i=0; i<100000; i++){
+            { 
+            for(int i=0; i<10000; i++){
                     // Single deck game instance
                     Game game = new Game(1);
                     IGameState<card> initial = game.NewRound(0);
-                    
-                    
                     long counter = 0;
 
                     while (initial.Reward > 0.0)

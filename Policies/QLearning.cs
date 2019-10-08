@@ -32,7 +32,7 @@ namespace CardExploration.Policies
             this.DiscountFactor = DiscountFactor;
 
         }
-
+ 
         public int ChooseAction(List<int> State, IEnumerable<int> Actions)
         {
             string key = String.Join(",", State);

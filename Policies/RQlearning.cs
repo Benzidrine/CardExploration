@@ -15,6 +15,12 @@ namespace CardExploration.Policies{
         public double Epsilon { get; set; }
         private List<int> Actions {get; set;}
 
+        public RQlearning(double Epsilon, double DiscountFactor, IApproximator Qfunc)
+        {
+            this.Epsilon = Epsilon;
+            this.DiscountFactor = DiscountFactor;
+            this.Qfunc = Qfunc;
+        }
         /// <summary>
         /// Select a random Action weighted on its value
         /// </summary>
@@ -23,14 +29,20 @@ namespace CardExploration.Policies{
         private int Choose(IEnumerable<int> Values){
             int Action = 0;
             int M = Values.Max();
-            int R = ThreadSafeRandom.ThisThreadsRandom.Next(M);
+            int L = Values.Min();
+            if(M > 0){
+            int R = ThreadSafeRandom.ThisThreadsRandom.Next(M-L);
             foreach(int value in Values){
-                R -= value;
+                R -= (value-L);
                 if(R <= 0){
                     break;
                 }
                 Action++;
             }
+            }
+            else{
+                Action = 0;
+            }            
             return Action;
         }
 
@@ -42,6 +54,7 @@ namespace CardExploration.Policies{
         /// <returns>Selected Action</returns>
         public int ChooseAction(List<int> State, IEnumerable<int> Actions)
         {
+            this.Actions = Actions.ToList();
             IEnumerable<int> Values = from int Action 
                 in Actions
                 select (int)GetQValue(State, Action);
@@ -61,16 +74,14 @@ namespace CardExploration.Policies{
         /// <summary>
         /// Calculates the predicted Q value for the state action pair
         /// </summary>
-        /// <param name="State">The current state assumed to exibit the markov property</typeparam>
+        ///   <param name="State">The current state assumed to exibit the markov property</typeparam>
         /// <param name="Action">The select action</typeparam>
         /// <returns>predicted Q value</returns>
         public double GetQValue(List<int> State, int Action)
         {       
             
             /*actions always come first as it assumed the action space is constant */
-                List<double> features = new List<double>(Action);
-                features.AddRange(State.ConvertAll(s=>Convert.ToDouble(s)));
-                return Qfunc.Value(features);
+                return Qfunc.Value(State.ConvertAll(v=>Convert.ToDouble(v)), Action);
         }
 
         /// <summary>
@@ -97,12 +108,11 @@ namespace CardExploration.Policies{
             /*prediction error*/
             double error = TD(PastState, CurrentState, Action, Reward);
             /*current action state feature set*/
-            List<double> features = new List<double>(Action);
-            features.AddRange(PastState.ConvertAll(s=>Convert.ToDouble(s)));
+
             /*parameter increment values*/
-            List<double> parameters = Qfunc.Gradient(features).ConvertAll(v=>v*error*Epsilon);
+            List<double> parameters = Qfunc.Gradient(PastState.ConvertAll(v=>Convert.ToDouble(v)), Action).ConvertAll(v=>v*error*Epsilon);
             /*update parameters in approximator*/
-            Qfunc.update(parameters);
+            Qfunc.update(parameters, Action);
         }
     }
 } 
